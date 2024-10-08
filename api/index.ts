@@ -3,13 +3,21 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
-app.use(cors());
+
+const corsOptions = {
+  origin: '*', 
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
 
 interface NasaImage {
   date: string;
@@ -65,7 +73,6 @@ app.get(
     res: Response<NasaImagesResponse | { error: string }>
   ) => {
     const { startDate, endDate } = req.query;
-
     if (!startDate || !endDate) {
       return res
         .status(400)
