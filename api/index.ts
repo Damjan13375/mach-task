@@ -9,7 +9,6 @@ const app = express();
 const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
 app.use(cors());
-console.log('API Key:', apiKey);  // Check if the API key is being correctly loaded
 
 interface NasaImage {
   date: string;
@@ -26,18 +25,7 @@ interface NasaImageResponse {
 interface NasaImagesResponse {
   images: NasaImage[];
 }
-const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
-  const response = await fetch(
-    `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
-  );
-console.log(`Response status: ${response.status}, message: ${await response.text()}`);  
-  if (!response.ok) {
-    throw new Error(`Failed to fetch NASA image: ${response.status}`);
-  }
 
-  const data = (await response.json()) as NasaImage;
-  return data;
-};
 const fetchNasaImages = async (
   startDate: string,
   endDate: string
@@ -84,6 +72,19 @@ app.get(
   }
 );
 
+const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
+  const response = await fetch(
+    `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
+  );
+console.log(`Response status: ${response.status}, message: ${await response.text()}`);  
+  if (!response.ok) {
+    throw new Error(`Failed to fetch NASA image: ${response.status}`);
+  }
+
+  const data = (await response.json()) as NasaImage;
+  return data;
+};
+
 app.get(
   "/nasa-image",
   async (
@@ -108,7 +109,4 @@ app.get(
   }
 );
 
-// app.listen(port, () => {
-//   console.log(`NASA Images microservice running at http://localhost:${port}`);
-// });
 export default app
