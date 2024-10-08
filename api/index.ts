@@ -3,25 +3,13 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
-
-const corsOptions = {
-  origin: 'https://mach-task.vercel.app',  // Allow only your frontend domain
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,  // Enable credentials (if necessary)
-  optionsSuccessStatus: 204  // For legacy browsers
-};
-
-// Apply CORS middleware globally to all routes
-app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));  
+app.use(cors());
 
 interface NasaImage {
   date: string;
@@ -41,9 +29,7 @@ interface NasaImagesResponse {
 const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
   const response = await fetch(
     `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
-  
   );
-  console.log(response)
   if (!response.ok) {
     throw new Error("Failed to fetch NASA image");
   }
@@ -60,7 +46,6 @@ const fetchNasaImages = async (
   const response = await fetch(
     `https://api.nasa.gov/planetary/apod?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`
   );
-  console.log(response)
 
   if (!response.ok) {
     throw new Error("Failed to fetch NASA images");
@@ -78,6 +63,7 @@ app.get(
     res: Response<NasaImagesResponse | { error: string }>
   ) => {
     const { startDate, endDate } = req.query;
+
     if (!startDate || !endDate) {
       return res
         .status(400)

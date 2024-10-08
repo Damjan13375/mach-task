@@ -12,7 +12,7 @@ export const Navbar = () =>{
     return (
         <nav className="bg-white px-4 py-4 md:px-24 md:py-6 relative z-30 text-black">
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold ">
+            <Link href="/" className="text-xl font-bold">
               NASA Images
             </Link>
             <div className="md:hidden">
