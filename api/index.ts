@@ -10,9 +10,8 @@ const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
 
 const corsOptions = {
-  origin: '*', 
+  origin: ['https://mach-task.vercel.app'],  
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
   optionsSuccessStatus: 204
 };
 
