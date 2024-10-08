@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
-// import cors from "cors";
+import cors from "cors";
 
 dotenv.config();
 
@@ -9,13 +9,13 @@ const app = express();
 const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
 
-// const corsOptions = {
-//   origin: ['https://mach-task.vercel.app'],  
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   optionsSuccessStatus: 204
-// };
+const corsOptions = {
+  origin: ['https://mach-task.vercel.app'],  
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 204
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 
 interface NasaImage {
