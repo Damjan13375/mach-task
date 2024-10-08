@@ -3,13 +3,13 @@ import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
 app.use(cors());
+console.log('API Key:', apiKey);  // Check if the API key is being correctly loaded
 
 interface NasaImage {
   date: string;
@@ -30,15 +30,14 @@ const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
   const response = await fetch(
     `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
   );
+  console.log(`Response status: ${response.status}, message: ${await response.text()}`);  // Log the status and error message
   if (!response.ok) {
-    throw new Error("Failed to fetch NASA image");
+    throw new Error(`Failed to fetch NASA image: ${response.status}`);
   }
 
   const data = (await response.json()) as NasaImage;
   return data;
 };
-
-// Function to fetch images from NASA's API
 const fetchNasaImages = async (
   startDate: string,
   endDate: string
@@ -51,7 +50,7 @@ const fetchNasaImages = async (
     throw new Error("Failed to fetch NASA images");
   }
 
-  const data = (await response.json()) as NasaImage[]; // Cast the result to NasaImage[]
+  const data = (await response.json()) as NasaImage[]; 
   return data;
 };
 
@@ -76,7 +75,6 @@ app.get(
       );
       res.json({ images });
     } catch (error: unknown) {
-      // Ensure that error is of type Error and has a message property
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       } else {
@@ -93,16 +91,14 @@ app.get(
     res: Response<NasaImageResponse | { error: string }>
   ) => {
     const { date } = req.query;
+    console.log(date,'haah')
     if (typeof date !== "string") {
       return res.status(400).json({ error: "Please provide a valid date" });
     }
-    console.log('123', date)
     try {
       const image = await fetchNasaImageByDate(date);
       res.json(image);
     } catch (error: unknown) {
-    console.log('123', error)
-
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       } else {
@@ -112,7 +108,6 @@ app.get(
   }
 );
 
-// Start the server
 app.listen(port, () => {
   console.log(`NASA Images microservice running at http://localhost:${port}`);
 });
