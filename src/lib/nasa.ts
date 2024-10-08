@@ -9,6 +9,7 @@ export interface NasaImage {
 export interface NasaImagesResponse {
   images: NasaImage[];
 }
+
 export const fetchNasaImage = async (date: string): Promise<NasaImage> => {
   try {
     const response = await fetch(`${apiURL}/nasa-image?date=${date}`);
