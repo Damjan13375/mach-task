@@ -11,7 +11,7 @@ export interface NasaImagesResponse {
 }
 export const fetchNasaImage = async (date: string): Promise<NasaImage> => {
   try {
-    const response = await fetch(`${apiURL}/nasa-image?date=${date}`);
+    const response = await fetch(`${apiURL}/nasa-image?date=${encodeURIComponent(date)}`);
     if (!response.ok) {
       const errorText = await response.text(); 
       throw new Error(`Failed to fetch NASA image: ${errorText}`);

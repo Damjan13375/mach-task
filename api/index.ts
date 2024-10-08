@@ -55,7 +55,6 @@ const fetchNasaImages = async (
   return data;
 };
 
-// API endpoint to fetch NASA images
 app.get(
   "/nasa-images",
   async (
@@ -97,10 +96,13 @@ app.get(
     if (typeof date !== "string") {
       return res.status(400).json({ error: "Please provide a valid date" });
     }
+    console.log('123', date)
     try {
       const image = await fetchNasaImageByDate(date);
       res.json(image);
     } catch (error: unknown) {
+    console.log('123', error)
+
       if (error instanceof Error) {
         res.status(500).json({ error: error.message });
       } else {
