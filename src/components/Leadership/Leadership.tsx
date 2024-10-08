@@ -19,8 +19,8 @@ export const LeadershipSection = ({ leaders }: { leaders: Leader[] }) => (
               className="rounded-lg"
             />
           </div>
-          <h4 className="text-lg font-semibold mb-2">{leader.name}</h4>
-          <p className="text-gray-600">{leader.desc}</p>
+          <h4 className="text-lg font-semibold mb-2 text-white">{leader.name}</h4>
+          <p className="text-white">{leader.desc}</p>
         </div>
       ))}
     </div>

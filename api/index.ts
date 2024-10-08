@@ -30,6 +30,7 @@ const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
   const response = await fetch(
     `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
   );
+  console.log(response)
   if (!response.ok) {
     throw new Error("Failed to fetch NASA image");
   }
@@ -46,6 +47,7 @@ const fetchNasaImages = async (
   const response = await fetch(
     `https://api.nasa.gov/planetary/apod?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`
   );
+  console.log(response)
 
   if (!response.ok) {
     throw new Error("Failed to fetch NASA images");
