@@ -1,1 +1,15 @@
-{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/api" }] }
+{
+    "rewrites": [
+      {
+        "source": "/nasa-images",
+        "destination": "/api/express.js"
+      }
+    ],
+    "functions": {
+      "api/express.js": {
+        "memory": 1024,
+        "maxDuration": 10
+      }
+    }
+  }
+  

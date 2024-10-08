@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
+const serverless = require('serverless-http');  
 
 dotenv.config();
 
@@ -10,14 +11,17 @@ const port = process.env.PORT || 3030;
 const apiKey = process.env.NASA_API_KEY || "";
 
 const corsOptions = {
-  origin: ['https://mach-task.vercel.app'],  
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],  
-  allowedHeaders: ['Content-Type', 'Authorization'],  
-  credentials: true  
+  origin: 'https://mach-task.vercel.app',  // Allow only your frontend domain
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,  // Enable credentials (if necessary)
+  optionsSuccessStatus: 204  // For legacy browsers
 };
 
+// Apply CORS middleware globally to all routes
 app.use(cors(corsOptions));
 
+// Handle preflight requests
 app.options('*', cors(corsOptions));  
 
 interface NasaImage {
@@ -125,3 +129,5 @@ app.get(
 app.listen(port, () => {
   console.log(`NASA Images microservice running at http://localhost:${port}`);
 });
+
+module.exports.handler = serverless(app);
