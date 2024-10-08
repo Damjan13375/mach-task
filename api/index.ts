@@ -35,11 +35,8 @@ interface NasaImagesResponse {
 }
 const fetchNasaImageByDate = async (date: string): Promise<NasaImage> => {
   const response = await fetch(
-    `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`,
-    {
-      method: 'GET',
-      mode: 'cors',
-    }
+    `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`
+  
   );
   console.log(response)
   if (!response.ok) {
@@ -56,11 +53,7 @@ const fetchNasaImages = async (
   endDate: string
 ): Promise<NasaImage[]> => {
   const response = await fetch(
-    `https://api.nasa.gov/planetary/apod?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`,
-    {
-      method: 'GET',
-      mode: 'cors',
-    }
+    `https://api.nasa.gov/planetary/apod?start_date=${startDate}&end_date=${endDate}&api_key=${apiKey}`
   );
   console.log(response)
 
