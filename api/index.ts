@@ -108,6 +108,7 @@ app.get(
   }
 );
 
-app.listen(port, () => {
-  console.log(`NASA Images microservice running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`NASA Images microservice running at http://localhost:${port}`);
+// });
+export default app

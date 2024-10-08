@@ -1,9 +1,17 @@
-
 import { fetchNasaImage } from "@/lib/nasa";
 import Image from "next/image";
 
 export default async function NasaImageDetails({ params }: { params: { date: string } }) {
-  const image = await fetchNasaImage(params.date)
+  // Ensure 'date' is provided
+  if (!params?.date) {
+    return <p>Error: Date not provided!</p>;
+  }
+
+  const image = await fetchNasaImage(params.date);  // Fetch based on the date
+  if (!image) {
+    return <p>Error: No image found for this date!</p>;
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-gray-100">
       <div className="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
