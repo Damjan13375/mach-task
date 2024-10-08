@@ -1,4 +1,3 @@
-const apiURL = process.env.API_URL 
 export interface NasaImage {
   date: string;
   explanation: string;
