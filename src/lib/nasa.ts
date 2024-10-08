@@ -9,15 +9,9 @@ export interface NasaImage {
 export interface NasaImagesResponse {
   images: NasaImage[];
 }
-
 export const fetchNasaImage = async (date: string): Promise<NasaImage> => {
   try {
-    const response = await fetch(`${apiURL}/nasa-image?date=${date}`,
-      {
-        method: 'GET',
-        mode: 'cors',
-      }
-    );
+    const response = await fetch(`${apiURL}/nasa-image?date=${date}`);
     if (!response.ok) {
       const errorText = await response.text(); 
       throw new Error(`Failed to fetch NASA image: ${errorText}`);
@@ -32,11 +26,7 @@ export const fetchNasaImage = async (date: string): Promise<NasaImage> => {
 
 export const fetchNasaImages = async (startDate: string, endDate: string): Promise<NasaImage[]> => {
     const response = await fetch(
-      `${apiURL}/nasa-images?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`,
-      {
-        method: 'GET',
-        mode: 'cors',
-      }
+      `${apiURL}/nasa-images?startDate=${encodeURIComponent(startDate)}&endDate=${encodeURIComponent(endDate)}`
     );
     console.log('response', response)
     if (!response.ok) {
