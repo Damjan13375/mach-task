@@ -11,20 +11,14 @@ const apiKey = process.env.NASA_API_KEY || "";
 
 const corsOptions = {
   origin: ['https://mach-task.vercel.app'],  
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  optionsSuccessStatus: 204
+  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],  
+  allowedHeaders: ['Content-Type', 'Authorization'],  
+  credentials: true  
 };
-const options = [
-  cors({
-    origin: '*',
-    methods: '*',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-];
 
-app.use(options);
+app.use(cors(corsOptions));
 
+app.options('*', cors(corsOptions));  
 
 interface NasaImage {
   date: string;
