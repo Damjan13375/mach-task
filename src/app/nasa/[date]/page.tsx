@@ -1,5 +1,5 @@
-import { fetchNasaImage } from "@/lib/nasa";
-import Image from "next/image";
+// import { fetchNasaImage } from "@/lib/nasa";
+// import Image from "next/image";
 
 export default async function NasaImageDetails({ params }: { params: { date: string } }) {
   // Ensure 'date' is provided
