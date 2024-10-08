@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 import cors from "cors";
-const serverless = require('serverless-http');  
 
 dotenv.config();
 
@@ -129,5 +128,3 @@ app.get(
 app.listen(port, () => {
   console.log(`NASA Images microservice running at http://localhost:${port}`);
 });
-
-module.exports.handler = serverless(app);
